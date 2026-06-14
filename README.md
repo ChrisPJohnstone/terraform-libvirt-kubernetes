@@ -1,5 +1,7 @@
 # Kubernetes Experiment
 
+[libvirt tutorial](https://joshrosso.com/c/linux-hypervisor-setup/#permissions)
+
 ## Pre-Requisites
 
 - Installed

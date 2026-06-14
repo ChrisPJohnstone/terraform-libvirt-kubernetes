@@ -57,7 +57,7 @@ variable "os_machine" {
   description = "OS Machine Type"
   type        = string
   nullable    = false
-  default     = "q35"
+  default     = "pc"
 }
 
 variable "pool_name" {
@@ -84,6 +84,13 @@ variable "target_bus" {
   type        = string
   nullable    = false
   default     = "virtio"
+}
+
+variable "disk_driver_type" {
+  description = "Driver Type"
+  type        = string
+  nullable    = false
+  default     = "qcow2"
 }
 
 variable "network_bridge" {

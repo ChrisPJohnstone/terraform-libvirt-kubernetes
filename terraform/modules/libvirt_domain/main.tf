@@ -9,6 +9,7 @@ resource "libvirt_domain" "guest" {
     type         = var.os_type
     type_arch    = var.os_arch
     type_machine = var.os_machine
+    boot_devices = [{ dev = "hd" }]
   }
   devices = {
     disks = [{
@@ -21,6 +22,9 @@ resource "libvirt_domain" "guest" {
       target = {
         dev = var.target_device
         bus = var.target_bus
+      }
+      driver = {
+        type = var.disk_driver_type
       }
     }]
     interfaces = [

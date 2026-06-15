@@ -40,21 +40,21 @@ variable "memory" {
   description = "Maximum memory allocation for the vm at boot time"
   type        = number
   nullable    = false
-  default     = 512
+  default     = 2
 }
 
 variable "memory_unit" {
   description = "Unit for memory allocation"
   type        = string
   nullable    = false
-  default     = "Mb"
+  default     = "Gb"
 }
 
 variable "vcpu" {
   description = "Number of Virtual CPU's allocated"
   type        = number
   nullable    = false
-  default     = 1
+  default     = 2
 }
 
 variable "running" {

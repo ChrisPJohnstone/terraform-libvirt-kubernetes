@@ -24,6 +24,8 @@ resource "libvirt_cloudinit_disk" "guest_seed" {
           - ${var.ssh_public_key}
         sudo: ALL=(ALL) NOPASSWD:ALL
         shell: /bin/bash
+    packages:
+      - containerd
   EOF
   meta_data      = <<-EOF
     instance-id: ${var.guest_name}

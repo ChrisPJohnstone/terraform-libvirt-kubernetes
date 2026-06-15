@@ -14,9 +14,7 @@
 
 - `terraform -chdir=terraform init` Initialises terraform working directory
 - `terraform -chdir=terraform apply` Creates resources
-- `virsh list` Get a list of virtual machines
-- `virsh domifaddr {name}` Get IP of virtual machine
-- `ssh chris@{ip}` SSH in to VM
+- `ssh {user}@{ip}` SSH in to VM
 
 ## Documentation
 

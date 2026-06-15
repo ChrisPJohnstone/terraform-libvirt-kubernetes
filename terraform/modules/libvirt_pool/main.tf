@@ -7,7 +7,7 @@ resource "libvirt_pool" "pool" {
     autostart = true
   }
   destroy = {
-    delete = true
+    delete = false
   }
   target = {
     path = var.pool_target_path

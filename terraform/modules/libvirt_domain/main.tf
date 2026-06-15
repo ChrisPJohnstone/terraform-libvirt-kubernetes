@@ -94,6 +94,10 @@ resource "libvirt_domain" "guest" {
         model = {
           type = var.network_interface_model
         }
+        wait_for_ip = {
+          timeout = 300
+          source  = "lease"
+        }
       }
     ]
     serials = [{

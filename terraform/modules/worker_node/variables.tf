@@ -71,13 +71,6 @@ variable "os_machine" {
   default     = "pc"
 }
 
-variable "network_bridge" {
-  description = "Network bridge to connect to"
-  type        = string
-  nullable    = false
-  default     = "virbr0"
-}
-
 variable "network_interface" {
   description = "Network interface to connect to"
   type        = string
@@ -97,4 +90,11 @@ variable "console_target_port" {
   type        = number
   nullable    = false
   default     = 0
+}
+
+variable "apt_key_dir" {
+  description = "Directory for apt keys"
+  type        = string
+  nullable    = false
+  default     = "/etc/apt/keyrings/"
 }

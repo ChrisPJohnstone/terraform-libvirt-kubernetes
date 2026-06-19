@@ -18,17 +18,20 @@ resource "libvirt_cloudinit_disk" "guest_seed" {
         sudo: ALL=(ALL) NOPASSWD:ALL
         shell: /bin/bash
     bootcmd:
-    - mkdir -p ${var.apt_key_dir}
-    - curl -fsSLo ${var.apt_key_dir}k8s-key.gpg https://pkgs.k8s.io/core:/stable:/v1.36/deb/Release.key
+      - mkdir -p ${var.apt_key_dir}
+      - curl -fsSLo ${var.apt_key_dir}k8s-key.gpg https://pkgs.k8s.io/core:/stable:/v1.36/deb/Release.key
+      - curl -fsSLo ${var.apt_key_dir}docker.gpg https://download.docker.com/linux/debian/gpg
     apt:
       sources:
         kubernetes:
           source: "deb [signed-by=${var.apt_key_dir}k8s-key.gpg] https://pkgs.k8s.io/core:/stable:/v1.36/deb/ /"
+        docker:
+          source: "deb [signed-by=${var.apt_key_dir}docker.gpg] https://download.docker.com/linux/debian bookworm stable"
       package_update: true
     packages:
       - apt-transport-https
       - ca-certificates
-      - containerd
+      - containerd.io
       - curl
       - gpg
       - kubelet
@@ -36,6 +39,10 @@ resource "libvirt_cloudinit_disk" "guest_seed" {
       # Disable Swap
       - swapoff -a
       - sed -i '/ swap / s/^/#/' /etc/fstab
+
+      # Enable Containerd
+      - sudo apt-mark hold containerd.io
+      - sudo systemctl enable --now containerd.io
 
       # Enable Kubelet
       - sudo apt-mark hold kubelet

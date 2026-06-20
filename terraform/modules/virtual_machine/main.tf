@@ -34,17 +34,23 @@ resource "libvirt_cloudinit_disk" "guest_seed" {
       - containerd.io
       - curl
       - gpg
+      - kubeadm
+      - kubectl
       - kubelet
     runcmd:
       # Disable Swap
       - swapoff -a
       - sed -i '/ swap / s/^/#/' /etc/fstab
 
+      # Enable IP Forwarding
+      - echo 'net.ipv4.ip_forward=1' | sudo tee /etc/sysctl.d/99-kubernetes.conf
+      - sudo sysctl --system
+
       # Enable Containerd
       - sudo apt-mark hold containerd.io
       - containerd config default | sudo tee /etc/containerd/config.toml
-      - sudo systemctl stop containerd.io # Requires restart for config to take effect
-      - sudo systemctl enable --now containerd.io
+      - sudo systemctl stop containerd # Requires restart for config to take effect
+      - sudo systemctl enable --now containerd
 
       # Enable Kubelet
       - sudo apt-mark hold kubelet

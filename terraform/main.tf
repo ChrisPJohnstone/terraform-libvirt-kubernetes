@@ -26,7 +26,7 @@ resource "null_resource" "fetch_kubeconfig" {
       echo "Waiting on cloudinit"
       ssh ${var.guest_username}@${module.gaffer.guest_ip} 'cloud-init status --wait
       echo "Extraction kubeconfig"
-      sudo cat /etc/kubernetes/admin.conf' > kubeconfig
+      sudo cat /etc/kubernetes/admin.conf' > ${var.kubeconfig_path}
     EOF
   }
 }

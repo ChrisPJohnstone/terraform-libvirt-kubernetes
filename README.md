@@ -61,6 +61,7 @@ The [chosen technologies](#technology) were made to prioritise **learning** by m
     - [x] Install, configure & enable containerd
     - [x] Install & enable kubelet
     - [ ] Initalise Cluster
+    - [ ] Set up pod network
     - [ ] Connect Nodes
 - [ ] Start using kubernetes terraform
 - [ ] Deploy... something
@@ -68,4 +69,5 @@ The [chosen technologies](#technology) were made to prioritise **learning** by m
 ### Future
 
 - Check how much reliance there is on systemd & consider switching away
-- Update terraform version. Rolled back to v0.8.3 as rewrite (v0.9.8) had defect with CPU porivisioning on Debian.
+- Update terraform libvirt provider version. Rolled back to v0.8.3 as rewrite (v0.9.8) had defect with CPU porivisioning on Debian.
+- Might refactor `virtual_machine` to take `n_nodes` and name them automatigically but I like my silly names for now

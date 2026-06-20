@@ -8,6 +8,10 @@ resource "libvirt_volume" "guest_volume" {
 resource "libvirt_cloudinit_disk" "guest_seed" {
   name           = "${var.guest_name}-cloudinit.iso"
   pool           = var.pool_name
+  meta_data      = <<-EOF
+    instance-id: ${var.guest_name}
+    local-hostname: ${var.guest_name}
+  EOF
   user_data      = <<-EOF
     #cloud-config
     disable_root: true
@@ -55,10 +59,6 @@ resource "libvirt_cloudinit_disk" "guest_seed" {
       # Enable Kubelet
       - sudo apt-mark hold kubelet
       - sudo systemctl enable --now kubelet
-  EOF
-  meta_data      = <<-EOF
-    instance-id: ${var.guest_name}
-    local-hostname: ${var.guest_name}
   EOF
 }
 

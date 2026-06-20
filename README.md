@@ -53,23 +53,18 @@ The [chosen technologies](#technology) were made to prioritise **learning** by m
 - [x] Provision libvirt pool
 - [ ] Provision Debian Virtual Machines
     - [x] Add IP to outputs
-    - [ ] Configure worker nodes
-        - [x] Create user
-        - [x] Enable SSH access
-        - [x] Disable Swap
-        - [x] Install & enable kubelet
-        - [ ] Configure cgroup
-    - [ ] Configure Control Plane
-        - [ ] Create user
-        - [ ] Enable SSH access
-        - [ ] Disable Swap
-        - [ ] Install kubeadm
-        - [ ] Initialise cluster
-        - [ ] Join the worker nodes
-    - [ ] Check how much reliance there is on systemd & consider switching away
+    - [x] Create user
+    - [x] Enable SSH access
+    - [x] Disable Swap
+    - [x] Enable IP Forwarding
+    - [x] Install, configure & enable containerd
+    - [x] Install & enable kubelet
+    - [ ] Initalise Cluster
+    - [ ] Connect Nodes
 - [ ] Start using kubernetes terraform
 - [ ] Deploy... something
 
 ### Future
 
+- Check how much reliance there is on systemd & consider switching away
 - Update terraform version. Rolled back to v0.8.3 as rewrite (v0.9.8) had defect with CPU porivisioning on Debian.

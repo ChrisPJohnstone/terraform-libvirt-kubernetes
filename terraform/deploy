@@ -7,3 +7,4 @@ function apply() {
 
 cd "$(dirname "$0")" || exit 1
 apply "nodes" "${@}"
+apply "cluster" "${@}"

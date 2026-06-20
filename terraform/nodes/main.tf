@@ -14,6 +14,26 @@ module "gaffer" {
   pool_name       = module.resource_pool.pool.name
 }
 
+module "hoddit" {
+  source          = "./modules/virtual_machine"
+  depends_on      = [module.gaffer]
+  guest_name      = "hoddit"
+  cloud_init_path = "./templates/cloudinit.yml"
+  guest_username  = var.guest_username
+  ssh_public_key  = file(pathexpand(var.ssh_key_path))
+  pool_name       = module.resource_pool.pool.name
+}
+
+module "doddit" {
+  source          = "./modules/virtual_machine"
+  depends_on      = [module.gaffer]
+  guest_name      = "doddit"
+  cloud_init_path = "./templates/cloudinit.yml"
+  guest_username  = var.guest_username
+  ssh_public_key  = file(pathexpand(var.ssh_key_path))
+  pool_name       = module.resource_pool.pool.name
+}
+
 resource "null_resource" "fetch_kubeconfig" {
   depends_on      = [module.gaffer]
   triggers = {
@@ -31,22 +51,3 @@ resource "null_resource" "fetch_kubeconfig" {
   }
 }
 
-module "hoddit" {
-  source          = "./modules/virtual_machine"
-  depends_on      = [null_resource.fetch_kubeconfig]
-  guest_name      = "hoddit"
-  cloud_init_path = "./templates/cloudinit.yml"
-  guest_username  = var.guest_username
-  ssh_public_key  = file(pathexpand(var.ssh_key_path))
-  pool_name       = module.resource_pool.pool.name
-}
-
-module "doddit" {
-  source          = "./modules/virtual_machine"
-  depends_on      = [null_resource.fetch_kubeconfig]
-  guest_name      = "doddit"
-  cloud_init_path = "./templates/cloudinit.yml"
-  guest_username  = var.guest_username
-  ssh_public_key  = file(pathexpand(var.ssh_key_path))
-  pool_name       = module.resource_pool.pool.name
-}

@@ -70,13 +70,6 @@ variable "vcpu" {
   default     = 2
 }
 
-variable "running" {
-  description = "Wether guest should be started after creation"
-  type        = bool
-  nullable    = false
-  default     = false
-}
-
 variable "os_arch" {
   description = "OS Architecture"
   type        = string

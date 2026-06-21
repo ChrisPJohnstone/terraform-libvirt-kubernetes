@@ -31,8 +31,11 @@ runcmd:
   - swapoff -a
   - sed -i '/ swap / s/^/#/' /etc/fstab
 
-  # Enable IP Forwarding
+  # Set up Networking
+  - modprobe br_netfilter
+  - echo 'br_netfilter' | sudo tee /etc/modules-load.d/br_netfilter.conf
   - echo 'net.ipv4.ip_forward=1' | sudo tee /etc/sysctl.d/99-kubernetes.conf
+  - echo 'net.bridge.bridge-nf-call-iptables=1' | sudo tee -a /etc/sysctl.d/99-kubernetes.conf
   - sudo sysctl --system
 
   # Enable Containerd
@@ -47,7 +50,7 @@ runcmd:
 
   %{ if is_control_node }
   # Initialise Cluster
-  - sudo kubeadm init
+  - sudo kubeadm init --pod-network-cidr=10.244.0.0/16
 
   # Move kubeconfig to user
   - mkdir -p "/home/${guest_username}/.kube"

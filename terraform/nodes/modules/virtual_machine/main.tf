@@ -6,13 +6,13 @@ resource "libvirt_volume" "guest_volume" {
 }
 
 resource "libvirt_cloudinit_disk" "guest_seed" {
-  name           = "${var.guest_name}-cloudinit.iso"
-  pool           = var.pool_name
-  meta_data      = <<-EOF
+  name      = "${var.guest_name}-cloudinit.iso"
+  pool      = var.pool_name
+  meta_data = <<-EOF
     instance-id: ${var.guest_name}
     local-hostname: ${var.guest_name}
   EOF
-  user_data      = templatefile(var.cloud_init_path, {
+  user_data = templatefile(var.cloud_init_path, {
     is_control_node = var.is_control_node
     guest_username  = var.guest_username
     ssh_public_key  = var.ssh_public_key
@@ -49,17 +49,28 @@ resource "libvirt_domain" "guest" {
   }
 }
 
-resource "null_resource" "wait_for_cloudinit" {
-  depends_on      = [libvirt_domain.guest]
+resource "time_sleep" "wait_for_ip" {
+  depends_on = [libvirt_domain.guest]
   triggers = {
-    gaffer_ip = local.guest_ip
+    running  = libvirt_domain.guest.running
+    guest_ip = local.guest_ip
+  }
+  create_duration = "10s"
+}
+
+resource "null_resource" "wait_for_cloudinit" {
+  depends_on = [time_sleep.wait_for_ip]
+  triggers = {
+    running  = libvirt_domain.guest.running
+    guest_ip = local.guest_ip
   }
   provisioner "local-exec" {
     command = <<-EOF
+      [ "${local.guest_ip}" = "" ] && echo "Guest IP not provisioned fast enough, please try again" && exit 1
       echo "Waiting on SSH connection"
       while ! ssh -o StrictHostKeyChecking=accept-new ${var.guest_username}@${local.guest_ip} true; do sleep 5; done
       echo "Waiting on cloudinit"
-      ssh ${var.guest_username}@${local.guest_ip} 'cloud-init status --wait > /dev/null; rc=$?; exit $((rc == 2 ? 0 : rc))'
+      ssh ${var.guest_username}@${local.guest_ip} 'cloud-init status --wait > /dev/null; rc=$?; [ $rc -eq 2 ] && rc=0; exit $rc'
     EOF
   }
 }

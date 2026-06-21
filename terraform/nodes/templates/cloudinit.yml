@@ -16,7 +16,7 @@ apt:
       source: "deb [signed-by=${apt_key_dir}k8s-key.gpg] https://pkgs.k8s.io/core:/stable:/v1.36/deb/ /"
     docker:
       source: "deb [signed-by=${apt_key_dir}docker.gpg] https://download.docker.com/linux/debian bookworm stable"
-  package_update: true
+package_update: true
 packages:
   - apt-transport-https
   - ca-certificates
@@ -46,5 +46,14 @@ runcmd:
   - sudo systemctl enable --now kubelet
 
   %{ if is_control_node }
+  # Initialise Cluster
   - sudo kubeadm init
+
+  # Move kubeconfig to user
+  - mkdir -p "/home/${guest_username}/.kube"
+  - sudo cp "/etc/kubernetes/admin.conf" "/home/${guest_username}/.kube/config"
+  - sudo chown -R "${guest_username}:${guest_username}" "/home/${guest_username}/.kube"
+
+  # Set up pod network
+  - runuser -l '${guest_username}' -c 'kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml'
   %{ endif }

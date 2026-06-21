@@ -62,13 +62,14 @@ Some alternatives that would probably make life easier
     - [x] Install, configure & enable containerd
     - [x] Install & enable kubelet
     - [x] Initalise Cluster
-    - [ ] Connect Nodes
+    - [x] Set up pod network
+    - [x] Connect Nodes
 - [x] Extract kubeconfig
-- [ ] Set up pod network
 - [ ] Deploy... something
 
 ### Future
 
+- Static IP's for VM's
 - Check how much reliance there is on systemd & consider switching away
 - Update terraform libvirt provider version. Rolled back to v0.8.3 as rewrite (v0.9.8) had defect with CPU porivisioning on Debian.
 - Might refactor `virtual_machine` to take `n_nodes` and name them automatigically but I like my silly names for now

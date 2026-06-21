@@ -72,7 +72,7 @@ resource "null_resource" "wait_for_cloudinit" {
     command = <<-EOF
       [ "${local.guest_ip}" = "" ] && echo "Guest IP not provisioned in time, please retry deploy" && exit 1
       echo "Waiting on SSH connection"
-      while ! ${local.guest_ssh_cmd} true; do sleep 5; done
+      while ! ${local.guest_ssh_cmd} true; do sleep 10; done
       echo "Waiting on cloudinit"
       ${local.guest_ssh_cmd} 'cloud-init status --wait > /dev/null; rc=$?; [ $rc -eq 2 ] && rc=0; exit $rc'
     EOF

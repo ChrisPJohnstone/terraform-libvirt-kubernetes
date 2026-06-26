@@ -11,18 +11,20 @@ Some alternatives that would probably make life easier
 
 ## Technology
 
-- [Terraform](https://developer.hashicorp.com/terraform) — Declarative Infrastructure-as-Code
-    - [Terraform libvirt Provider](https://registry.terraform.io/providers/dmacvicar/libvirt/latest/docs) — Terraform provider for managing libvirt resources
-    - [Terraform Kubernetes Provider](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs) — Terraform provider for managing Kubernetes resources via the API
-- [KVM](https://linux-kvm.org/page/Main_Page) — Linux kernel module for hardware-accelerated virtualization
-- [QEMU](https://www.qemu.org/) — Machine emulator and virtualizer
-- [libvirt](https://libvirt.org/) — Virtualization management API, daemon, and management tool
-- [Cloud-Init](https://cloud-init.io/) — Cloud instance initialisation tool
-- [Debian](https://cloud.debian.org/images/cloud/trixie/latest/) — Linux distribution
-- [containerd](https://containerd.io/) — Container runtime
-- [Kubernetes](https://kubernetes.io/) — Container orchestration platform for automating deployment, scaling, and management of containerized workloads
-    - [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/) — Kubernetes cluster bootstrapping tool
+- [Terraform](https://developer.hashicorp.com/terraform) - Declarative Infrastructure-as-Code
+    - [Terraform libvirt Provider](https://registry.terraform.io/providers/dmacvicar/libvirt/latest/docs) - Terraform provider for managing libvirt resources
+    - [Terraform Kubernetes Provider](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs) - Terraform provider for managing Kubernetes resources via the API
+- [KVM](https://linux-kvm.org/page/Main_Page) - Linux kernel module for hardware-accelerated virtualization
+- [QEMU](https://www.qemu.org/) - Machine emulator and virtualizer
+- [libvirt](https://libvirt.org/) - Virtualization management API, daemon, and management tool
+- [Cloud-Init](https://cloud-init.io/) - Cloud instance initialisation tool
+- [Debian](https://cloud.debian.org/images/cloud/trixie/latest/) - Linux distribution
+- [containerd](https://containerd.io/) - Container runtime
+- [Kubernetes](https://kubernetes.io/) - Container orchestration platform for automating deployment, scaling, and management of containerized workloads
+    - [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/) - Kubernetes cluster bootstrapping tool
     - [flannel](https://github.com/flannel-io/flannel) - Kubernetes Container Network Interface (CNI)
+- [Prometheus](https://prometheus.io/) - Monitoring & Alerting system
+- [Graphana](https://grafana.com/) - Metrics Visualisation & Observability platform
 
 ## Usage
 
@@ -56,7 +58,7 @@ This section functions mostly as a todo list / note section for myself so it mig
 
 - [x] Provision libvirt pool
 - [x] Provision Debian VM's with Cloud-Init
-    - [x] Add IP to outputs
+    - [x] Static IP for VM's
     - [x] Create user
     - [x] Enable SSH access
     - [x] Disable Swap
@@ -68,8 +70,9 @@ This section functions mostly as a todo list / note section for myself so it mig
     - [x] Connect Nodes
 - [x] Extract kubeconfig
 - [x] Deploy something (nginx)
-- [x] Static IP for VM's
-- Figure out something to deploy that covers cool scenarios (high availability, load balancing, network security, monitoring)
+- [ ] Deploy Prometheus
+- [ ] Deploy Grafana
+- Figure out something to deploy that covers cool scenarios (high availability, load balancing, network security)
 
 ### Future
 

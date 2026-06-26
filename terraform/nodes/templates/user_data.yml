@@ -24,7 +24,9 @@ packages:
   - curl
   - gpg
   - kubeadm
+  %{ if is_control_node }
   - kubectl
+  %{ endif }
   - kubelet
 runcmd:
   # Disable Swap

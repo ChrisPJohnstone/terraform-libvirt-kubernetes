@@ -8,11 +8,10 @@ resource "libvirt_volume" "guest_volume" {
 resource "libvirt_cloudinit_disk" "guest_seed" {
   name      = "${var.guest_name}-cloudinit.iso"
   pool      = var.pool_name
-  meta_data = <<-EOF
-    instance-id: ${var.guest_name}
-    local-hostname: ${var.guest_name}
-  EOF
-  user_data = templatefile(var.cloud_init_path, {
+  meta_data = templatefile("${var.template_dir}meta_data.yml", {
+    guest_name = var.guest_name
+  })
+  user_data = templatefile("${var.template_dir}user_data.yml", {
     is_control_node = var.is_control_node
     guest_username  = var.guest_username
     ssh_public_key  = var.ssh_public_key

@@ -11,8 +11,8 @@ variable "guest_name" {
   nullable    = false
 }
 
-variable "cloud_init_path" {
-  description = "Path  to cloudinit template"
+variable "template_dir" {
+  description = "Directory with cloudinit templates"
   type        = string
   nullable    = false
 }

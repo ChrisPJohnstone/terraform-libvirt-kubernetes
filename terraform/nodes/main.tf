@@ -8,7 +8,7 @@ module "gaffer" {
   depends_on      = [module.resource_pool]
   is_control_node = true
   guest_name      = "gaffer"
-  cloud_init_path = "./templates/cloudinit.yml"
+  template_dir    = "./templates/"
   guest_username  = var.guest_username
   ssh_public_key  = file(pathexpand(var.ssh_key_path))
   pool_name       = module.resource_pool.pool.name
@@ -33,7 +33,7 @@ module "workers" {
   source          = "./modules/virtual_machine"
   depends_on      = [null_resource.fetch_kubeconfig]
   guest_name      = each.key
-  cloud_init_path = "./templates/cloudinit.yml"
+  template_dir    = "./templates/"
   guest_username  = var.guest_username
   ssh_public_key  = file(pathexpand(var.ssh_key_path))
   pool_name       = module.resource_pool.pool.name

@@ -15,30 +15,10 @@ module "envoy" {
 }
 
 module "prometheus" {
-  depends_on  = [kubernetes_namespace_v1.namespace]
+  depends_on = [module.metallb, module.envoy]
   source      = "./modules/prometheus/"
   namespace   = local.namespace
   config_path = "${var.config_dir}prometheus.yml"
-}
-
-resource "kubernetes_manifest" "prometheus_http_route" {
-  depends_on = [module.envoy, module.prometheus]
-  manifest = {
-    apiVersion = "gateway.networking.k8s.io/v1"
-    kind       = "HTTPRoute"
-    metadata = {
-      name      = "prometheus-route"
-      namespace = local.namespace
-    }
-    spec = {
-      parentRefs = [{ name = module.envoy.gateway_name }]
-      hostnames = ["prometheus.${var.domain}"]
-      rules = [{
-        backendRefs = [{
-          name = "prometheus"
-          port = 9090
-        }]
-      }]
-    }
-  }
+  gateway_name = module.envoy.gateway_name
+  domain      = var.domain
 }

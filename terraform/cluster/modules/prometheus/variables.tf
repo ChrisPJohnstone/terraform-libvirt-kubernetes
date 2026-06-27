@@ -9,3 +9,15 @@ variable "namespace" {
   type        = string
   nullable    = false
 }
+
+variable "gateway_name" {
+  description = "Name of gateway for domain"
+  type        = string
+  nullable    = false
+}
+
+variable "domain" {
+  description = "Domain to create service under"
+  type        = string
+  nullable    = false
+}

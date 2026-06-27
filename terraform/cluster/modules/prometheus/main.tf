@@ -54,3 +54,24 @@ resource "kubernetes_service_v1" "prometheus_service" {
     }
   }
 }
+
+resource "kubernetes_manifest" "prometheus_http_route" {
+  manifest = {
+    apiVersion = "gateway.networking.k8s.io/v1"
+    kind       = "HTTPRoute"
+    metadata = {
+      name      = "prometheus-route"
+      namespace = var.namespace
+    }
+    spec = {
+      parentRefs = [{ name = var.gateway_name }]
+      hostnames = ["prometheus.${var.domain}"]
+      rules = [{
+        backendRefs = [{
+          name = "prometheus"
+          port = 9090
+        }]
+      }]
+    }
+  }
+}

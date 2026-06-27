@@ -73,13 +73,13 @@ This section functions mostly as a todo list / note section for myself so it mig
     - [x] Set up pod network
     - [x] Connect Nodes
 - [x] Extract kubeconfig
-- [ ] Envoy Gateway
+- [x] Envoy Gateway
     - [x] Helm Release
     - [x] GatewayClass
     - [x] Gateway
-    - [ ] HTTPRoute
 - [ ] MetalLB
 - [x] Prometheus
+    - [ ] HTTPRoute
     - [ ] Make address consistent
 - [ ] Deploy Grafana
 - Figure out something to deploy that covers cool scenarios (high availability, network security)

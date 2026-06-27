@@ -8,6 +8,7 @@ Some alternatives that would probably make life easier
 - [minikube](https://minikube.sigs.k8s.io) instead of self-provisioning
 - [VirtualBox](https://www.virtualbox.org/) instead of [libvirt](https://libvirt.org/)/[QEMU](https://www.qemu.org/)/[KVM](https://linux-kvm.org/page/Main_Page)
 - [Talos](https://www.siderolabs.com/talos-linux) instead of [Debian](https://cloud.debian.org/images/cloud/trixie/latest/) & [Cloud-Init](https://cloud-init.io/)
+- [Helm](https://helm.sh/) instead of [bespoke configs](./terraform/cluster/configs)
 
 ## Technology
 
@@ -23,8 +24,11 @@ Some alternatives that would probably make life easier
 - [Kubernetes](https://kubernetes.io/) - Container orchestration platform for automating deployment, scaling, and management of containerized workloads
     - [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/) - Kubernetes cluster bootstrapping tool
     - [flannel](https://github.com/flannel-io/flannel) - Kubernetes Container Network Interface (CNI)
+- [Envoy Proxy](https://www.envoyproxy.io/) - L4/L7 Proxy
+- [Envoy Gateway](https://gateway.envoyproxy.io/) - Kubernetes Gateway API Implementation
+- [MetalLB](https://metallb.io/) - Bare-metal load balancer
 - [Prometheus](https://prometheus.io/) - Monitoring & Alerting system
-- [Graphana](https://grafana.com/) - Metrics Visualisation & Observability platform
+- [Grafana](https://grafana.com/) - Metrics Visualisation & Observability platform
 
 ## Usage
 
@@ -72,8 +76,10 @@ This section functions mostly as a todo list / note section for myself so it mig
 - [x] Deploy something (nginx)
 - [x] Deploy Prometheus
     - [ ] Make address consistent
+        - [ ] Ingress
+        - [ ] Load Balancer
 - [ ] Deploy Grafana
-- Figure out something to deploy that covers cool scenarios (high availability, load balancing, network security)
+- Figure out something to deploy that covers cool scenarios (high availability, network security)
 
 ### Future
 

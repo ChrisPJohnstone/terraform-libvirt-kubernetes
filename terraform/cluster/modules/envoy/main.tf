@@ -32,6 +32,10 @@ resource "kubernetes_manifest" "envoy_gateway" {
     }
     spec = {
       gatewayClassName = var.gatewayclass_name
+      addresses = [{
+        type  = "IPAddress"
+        value = var.gateway_ip
+      }]
       listeners = [{
         name     = "http"
         protocol = "HTTP"

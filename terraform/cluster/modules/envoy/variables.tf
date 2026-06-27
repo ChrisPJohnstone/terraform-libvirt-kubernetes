@@ -18,6 +18,13 @@ variable "gatewayclass_name" {
   default     = "envoy-gatewayclass"
 }
 
+variable "gateway_ip" {
+  description = "Static IP to assign to the Gateway for MetalLB"
+  type        = string
+  nullable    = false
+  default     = "192.168.122.200"
+}
+
 variable "gatewayclass_api_version" {
   description = "API Version for GatewayClass"
   type        = string

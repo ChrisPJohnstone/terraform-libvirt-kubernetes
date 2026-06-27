@@ -59,6 +59,27 @@ Some alternatives that would probably make life easier
     ./terraform/destroy
     ```
 
+### Accessing Services
+
+Services behind the Envoy Gateway are accessible by hostname on `192.168.122.200`. Services are seperated using subdomain so you have to either
+- Add entries to `/etc/hosts`
+
+    ```
+    192.168.122.200 ${service}.lab.local
+    ```
+    Example for `prometheus`
+    ```
+    192.168.122.200 prometheus.lab.local
+    ```
+- Use `curl` with the explicit `Host` header:
+    ```sh
+    curl -H "Host: ${service}.lab.local" "192.168.122.200"
+    ```
+    Example for `prometheus`
+    ```sh
+    curl -H "Host: prometheus.lab.local" "192.168.122.200"
+    ```
+
 ## Roadmap
 
 This section functions mostly as a todo list / note section for myself so it might not be very organised.
@@ -82,13 +103,14 @@ This section functions mostly as a todo list / note section for myself so it mig
     - [x] Helm Release
     - [x] GatewayClass
     - [x] Gateway
-- [ ] MetalLB
+- [x] MetalLB
     - [x] Helm Release
     - [x] IP Pool
     - [x] L2 Advertisement
 - [x] Prometheus
     - [x] HTTPRoute
-    - [ ] Make address consistent
+    - [x] Make address consistent
+    - [ ] High Availability
 - [ ] Deploy Grafana
 - Figure out something to deploy that covers cool scenarios (high availability, network security)
 

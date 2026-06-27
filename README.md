@@ -78,6 +78,9 @@ This section functions mostly as a todo list / note section for myself so it mig
     - [x] GatewayClass
     - [x] Gateway
 - [ ] MetalLB
+    - [x] Helm Release
+    - [x] IP Pool
+    - [x] L2 Advertisement
 - [x] Prometheus
     - [x] HTTPRoute
     - [ ] Make address consistent

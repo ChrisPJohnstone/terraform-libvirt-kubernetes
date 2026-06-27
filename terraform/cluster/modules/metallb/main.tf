@@ -6,3 +6,33 @@ resource "helm_release" "metallb_release" {
   namespace        = var.namespace
   create_namespace = false
 }
+
+resource "kubernetes_manifest" "ip_address_pool" {
+  depends_on = [helm_release.metallb_release]
+  manifest = {
+    apiVersion = var.ip_pool_api_version
+    kind       = "IPAddressPool"
+    metadata = {
+      name      = "default-pool"
+      namespace = var.namespace
+    }
+    spec = {
+      addresses = [var.ip_range]
+    }
+  }
+}
+
+resource "kubernetes_manifest" "l2_advertisement" {
+  depends_on = [kubernetes_manifest.ip_address_pool]
+  manifest = {
+    apiVersion = var.l2_advertisement_api_version
+    kind       = "L2Advertisement"
+    metadata = {
+      name      = "default-l2"
+      namespace = var.namespace
+    }
+    spec = {
+      ipAddressPools = [kubernetes_manifest.ip_address_pool.manifest.metadata.name]
+    }
+  }
+}

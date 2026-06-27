@@ -8,13 +8,13 @@ Some alternatives that would probably make life easier
 - [minikube](https://minikube.sigs.k8s.io) instead of self-provisioning
 - [VirtualBox](https://www.virtualbox.org/) instead of [libvirt](https://libvirt.org/)/[QEMU](https://www.qemu.org/)/[KVM](https://linux-kvm.org/page/Main_Page)
 - [Talos](https://www.siderolabs.com/talos-linux) instead of [Debian](https://cloud.debian.org/images/cloud/trixie/latest/) & [Cloud-Init](https://cloud-init.io/)
-- [Helm](https://helm.sh/) instead of [bespoke configs](./terraform/cluster/configs)
 
 ## Technology
 
 - [Terraform](https://developer.hashicorp.com/terraform) - Declarative Infrastructure-as-Code
     - [Terraform libvirt Provider](https://registry.terraform.io/providers/dmacvicar/libvirt/latest/docs) - Terraform provider for managing libvirt resources
     - [Terraform Kubernetes Provider](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs) - Terraform provider for managing Kubernetes resources via the API
+    - [Terraform Helm Provider](https://registry.terraform.io/providers/hashicorp/helm/latest/docs) - Terraform provider for helm
 - [KVM](https://linux-kvm.org/page/Main_Page) - Linux kernel module for hardware-accelerated virtualization
 - [QEMU](https://www.qemu.org/) - Machine emulator and virtualizer
 - [libvirt](https://libvirt.org/) - Virtualization management API, daemon, and management tool
@@ -73,11 +73,12 @@ This section functions mostly as a todo list / note section for myself so it mig
     - [x] Set up pod network
     - [x] Connect Nodes
 - [x] Extract kubeconfig
-- [x] Deploy something (nginx)
-- [x] Deploy Prometheus
+- [ ] Envoy Gateway
+    - [x] Install Helm Release
+    - [ ] Install GatewayClass, Gateway & HTTPRoute
+- [ ] MetalLB
+- [x] Prometheus
     - [ ] Make address consistent
-        - [ ] Ingress
-        - [ ] Load Balancer
 - [ ] Deploy Grafana
 - Figure out something to deploy that covers cool scenarios (high availability, network security)
 

@@ -5,6 +5,7 @@ function apply() {
     terraform -chdir="${stack}" apply "${@:2}"
 }
 
+set -e
 cd "$(dirname "$0")" || exit 1
 apply "nodes" "${@}"
 apply "cluster" "${@}"

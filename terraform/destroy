@@ -4,6 +4,7 @@ function destroy() {
     terraform -chdir="${stack}" destroy "${@:2}"
 }
 
+set -e
 cd "$(dirname "$0")" || exit 1
 destroy "cluster" "${@}"
-# destroy "nodes" "${@}"
+destroy "nodes" "${@}"
